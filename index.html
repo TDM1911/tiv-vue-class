@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>A First App</title>
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div id="app">
+        <div>
+            <label for="goal">Goal</label>
+            <input type="text"
+                id="goal"
+                v-model="enteredValue"
+                @keyup.enter="addGoal"/>
+            <p class="error" v-text="error"></p>
+            <div class="space-between">
+                <div>
+                    <button @click="addGoal" style="margin-right: 10px;">Add Goal</button>
+                    <button @click="clearAllGoal">Clear All Goal</button>
+                </div>
+                <span>
+                    Total: {{ goals.length }}
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div style="text-align: center;">
+            <h3>Your goal</h3>
+        </div>
+        <ul>
+            <li v-for="(goal,index) in goals" class="space-between">
+                <span style="padding-right: 40px">{{ goal }}</span>
+                <button @click="removeGoal(index)">
+                    X
+                </button>
+            </li>
+        </ul>
+        </div>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
