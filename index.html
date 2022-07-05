@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Events</h1>
+    </header>
+    <section id="events">
+      <h2>Events in Action</h2>
+      <div>
+        Using v-on:
+        <input type="number" @input="setStep" :value="step">
+      </div>
+      <div>
+        Using v-model:
+        <input type="number" v-model="step">
+      </div>
+      <br><br>
+      <button @click="add(step)">Add {{ step }}</button>
+      <button @click="subtract(step)">Subtract by {{ step }}</button>
+      <p>Result: {{ counter }}</p>
+
+      <input type="text" @input="setName" :value="username">
+      <p>Your name is: {{ username }}</p>
+  </body>
+</html>
