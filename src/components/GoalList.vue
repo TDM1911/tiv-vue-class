@@ -9,18 +9,30 @@
     <div style="text-align: center;">
         <h3>Your todo list</h3>
     </div>
-    <ul v-if="goals.length">
-        <goal-item v-for="goal in goals" :key="goal.id" :goal="goal.value" :index="goal.id" @remove="removeGoal"></goal-item>
-    </ul>
-    <label v-else class="box">You have no goal</label>
+    <div>
+        <ul v-if="goals.length">
+            <goal-item
+                v-for="goal in goals"
+                :key="goal.id"
+                :goal="goal.value"
+                :index="goal.id"
+                @remove="removeGoal"
+                @toggle="toggleGoal"
+                @edit="editGoal"></goal-item>
+        </ul>
+        <label v-else class="box">You have no goal</label>
+    </div>
+    <goal-sorter :data="goals"></goal-sorter>
 </template>
 
 <script>
 import GoalItem from './GoalItem.vue';
+import GoalSorter from './GoalSorter.vue';
 
 export default {
     components: {
-        GoalItem
+        GoalItem,
+        GoalSorter,
     },
 
     data() {
@@ -42,6 +54,7 @@ export default {
             this.goals.push({
                 'value': this.enteredValue,
                 'id': this.index,
+                'completed': false,
             });
             this.index++;
             this.enteredValue = '';
@@ -50,6 +63,22 @@ export default {
             for (var i = this.goals.length - 1; i >= 0; i--) {
                 if (this.goals[i].id == index) {
                     this.goals.splice(i, 1);
+                    break;
+                }
+            }
+        },
+        toggleGoal(index) {
+            for (var i = this.goals.length - 1; i >= 0; i--) {
+                if (this.goals[i].id == index) {
+                    this.goals[i].completed = !this.goals[i].completed;
+                    break;
+                }
+            }
+        },
+        editGoal(index, text) {
+            for (var i = this.goals.length - 1; i >= 0; i--) {
+                if (this.goals[i].id == index) {
+                    this.goals[i].value = text;
                     break;
                 }
             }

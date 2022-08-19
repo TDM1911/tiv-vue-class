@@ -1,6 +1,6 @@
 <template>
-    <li class="space-between" @click="toggleGoal" :class="{'bg-complete': isCompleted}">
-        <input class="pl-1" type="checkbox" name="completed" v-model="isCompleted">
+    <li class="space-between" :class="{'bg-complete': isCompleted}">
+        <input @click="toggleGoal" class="pl-1" type="checkbox" name="completed" v-model="isCompleted">
         <span class="pl-1" v-if="!isEditing">{{ goalText }}</span>
         <input type=text class="pl-1" v-model="goalText" v-else/>
         <span class="pl-1 pr-1"><button @click="removeGoal"> X </button></span>
@@ -20,13 +20,16 @@ export default {
 
     methods: {
         toggleGoal() {
-            this.isCompleted = !this.isCompleted;
+            this.$emit('toggle', this.index);
         },
         removeGoal() {
             this.$emit('remove', this.index);
         },
         edit() {
             this.isEditing = !this.isEditing;
+            if (this.isEditing == false) {
+                this.$emit('edit', this.index, this.goalText);
+            }
         },
     },
 
